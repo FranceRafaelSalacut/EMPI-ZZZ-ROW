@@ -135,11 +135,13 @@ def check_var_declaration(word):
                     return IVD
                 CURRENT_STATE = VAR_NAME_DETECT
                 temp = ""
+                continue
             if token == ";":
                 if not check_if_match(data_type, temp):
                     return IVD
                 CURRENT_STATE = TYPE_DETECT
                 temp = ""
+                continue
             temp = temp + token
         
         ic(temp)
