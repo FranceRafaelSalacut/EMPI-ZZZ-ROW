@@ -6,7 +6,7 @@ REPO LINK
 https://github.com/FranceRafaelSalacut/EMPI-ZZZ-ROW.git
 '''
 
-from icecream import ic #a library for easier debug
+# from icecream import ic #a library for easier debug
 # ic.disable()
 
 # DATA TYPE
@@ -89,6 +89,10 @@ def add_to_dict(dict, data_type, value):
 def valid_name(name):
     if "_" in name:
         name = name.replace("_", "")
+
+    if not name[0].isalpha():
+        return False
+    
     return name.isalnum()
 
 def check_var_declaration(word):
