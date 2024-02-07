@@ -4,6 +4,8 @@ I declare, upon my honor, that I did this machine problem assignment by myself u
 
 REPO LINK
 https://github.com/FranceRafaelSalacut/EMPI-ZZZ-ROW.git
+
+This code is very dirty all over
 '''
 
 # from icecream import ic #a library for easier debug
@@ -32,49 +34,57 @@ STATES = [TYPE_DETECT, VAR_NAME_DETECT, VAR_VALUE_DETECT]
         
 def check_if_match(var_d_type, value, declared):
 
-    # IF THE DATA TYPE CONVERSION FAILS WE WILL CHECK IF THE VALUE IS ALREADY A DECLARED VARIABLE
+    # IF THE DATA TYPE CONVERSION FAILS WE WILL CHECK IF THE VALUE IS ALREADY A DECLARED VARIABLE OR IF THE VARIABLE IS AN ASCII CODE
     try:
         if var_d_type == "char":
-            ic(value)
+            #ic(value)
             if "'" in value:
-                ic()
+                #ic()
                 value = value.replace("'","")
-            ic(value)
-            ic(len(value))
-            ic(value.isalpha())
+            #ic(value)
+            #ic(len(value))
+            #ic(value.isalpha())
             if len(value) != 1 and value.isalpha():
-                ic()
+                #ic()
                 return False
 
         if var_d_type == "int":
-            ic()
-            if not isinstance(int(value), int):
-                ic()
-                return False
-
+            #ic()
+            return isinstance(int(value), int)
+                
         # THERE IS NO DIFFERENCE BETWEEN FLOAT AND DOUBLE IN PYTHON
         if var_d_type == "float":
-            ic()
-            if not isinstance(float(value), (int, float)):
-                ic()
-                return False
-
+            #ic()
+            return isinstance(float(value), (int, float))
+                
         if var_d_type == "double":
-            ic()
-            if not isinstance(float(value), (int, float)):
-                ic()
-                return False
-        ic()
+            #ic()
+            return isinstance(float(value), (int, float))
+            
+        #ic()
         return True
     except:
+
+        # CHECKING IF IT VALUE ALREADY DECLARED
+        #ic()
+        
+        passed = False
+
         for key,val in declared.items():
-            ic(key)
-            ic(value)
+            #ic(key)
+            #ic(value)
             if key == var_d_type:
                 for item in val:
                     if item == value:
-                        return True
-        return False
+                        passed = True
+
+        # CHECKING IF ITS AN ASCII VALUE
+        if var_d_type == "int":
+            if "'" in value:
+                value = value.replace("'","")
+            passed = isinstance(ord(value), int)
+        
+        return passed
 
 def add_to_dict(dict, data_type, value):
     if data_type in dict:
@@ -83,10 +93,12 @@ def add_to_dict(dict, data_type, value):
         dict[data_type] = list
         return dict
     
-    dict[data_type] = [value]
+    dict[data_type] = {value}
     return dict
 
 def valid_name(name):
+    if name in D_TYPE:
+        return False
     if "_" in name:
         name = name.replace("_", "")
 
@@ -96,7 +108,7 @@ def valid_name(name):
     return name.isalnum()
 
 def check_var_declaration(word):
-    ic()
+    #ic()
     # CHECKING IF THE TOKENS HAS A PARENTHESIS MEANING ITS A FUNCTION
     for token in word:
         if "(" in token or ")" in token:
@@ -109,7 +121,7 @@ def check_var_declaration(word):
         return IVD
     
 
-    #ic(word)
+    ##ic(word)
     temp = ""
     data_type = ""
     declared = {}
@@ -135,7 +147,7 @@ def check_var_declaration(word):
                 if len(temp) != 0:
                     if not valid_name(temp):
                         return IVD
-                    ic("VALID")
+                    #ic("VALID")
                 CURRENT_STATE = VAR_VALUE_DETECT
                 declared = add_to_dict(declared, data_type, temp)
                 temp = ""
@@ -143,20 +155,18 @@ def check_var_declaration(word):
 
             if token == ",":
                 has_comma = True
-                if temp in D_TYPE:
-                    return IVD
                 if not valid_name(temp):
                     return IVD
                 declared = add_to_dict(declared, data_type, temp)
-                ic("VALID")
+                #ic("VALID")
                 temp = ""
                 continue
 
             if token == " ":
-                ic(word[i-1])
-                ic(word[i+1])
+                #ic(word[i-1])
+                #ic(word[i+1])
                 if word[i-1] != ",":
-                    ic()
+                    #ic()
                     if word[i+1] != " " and word[i+1] != ";" and word[i+1] != "=":
                         if has_comma:
                             has_comma = False
@@ -175,6 +185,8 @@ def check_var_declaration(word):
                 continue
 
             temp = temp + token
+        
+        # CHECKINBG IF VAR VALUE IS CORRECT
         elif CURRENT_STATE ==  VAR_VALUE_DETECT:
             if token == " ":
                 token = ""
@@ -192,26 +204,26 @@ def check_var_declaration(word):
                 continue
             temp = temp + token
         
-        ic(temp)
-        ic(CURRENT_STATE)
-    ic()
+        #ic(temp)
+        #ic(CURRENT_STATE)
+    #ic()
     return VVD
 
 
 def check_fun_declaration(tokens):
     pass
-    #ic()
-    #ic(tokens)
+    ##ic()
+    ##ic(tokens)
 
 def main():
     i = int(input())
-    #ic(type(i))
+    ##ic(type(i))
 
     for _ in range(0, i):
         word = input()
-        #ic(word[0])
+        ##ic(word[0])
         result = check_var_declaration(word[1:]) if word[0] == "1" else check_fun_declaration(word[1:])
-        ic(result)
+        #ic(result)
         print(result)
 
 main()

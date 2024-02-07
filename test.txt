@@ -1,27 +1,160 @@
-3
-1 int x       ;
-1 int x,      y;
-1 int x = 1, y =23      ;
-
-
+Test 8: 8
+Incorrect program output
+--- Input ---
 2
-1 char a;
-1 char a = '1';
+1 int x, y, x = 45;
+1 double a int x char ch;
 
+--- Program output ---
+VALID VARIABLE DECLARATION
+INVALID VARIABLE DECLARATION
 
+--- Expected output (text)---
+INVALID VARIABLE DECLARATION
+INVALID VARIABLE DECLARATION
+
+Test 10: 10
+Incorrect program output
+--- Input ---
+3
+2 int function();
+2 INT function2(void);
+2 int solve(int,    char,double x,float,int,   int);
+
+--- Program output ---
+None
+None
+None
+
+--- Expected output (text)---
+VALID FUNCTION DECLARATION
+INVALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+
+Test 11: 11
+Incorrect program output
+--- Input ---
+5
+2 int power(int,int);
+2 char toLower( char );
+2 double squareRoot(float);
+2 int gcd(int,int), lcm(  int, int);
+2 int isPrime(int n);
+
+--- Program output ---
+None
+None
+None
+None
+None
+
+--- Expected output (text)---
+VALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+
+Test 12: 12
+Incorrect program output
+--- Input ---
+5
+2 void _f_();
+2 int int();
+2 int char();
+2 int function(int)int a = 10;
+2 void foo(void);
+
+--- Program output ---
+None
+None
+None
+None
+None
+
+--- Expected output (text)---
+VALID FUNCTION DECLARATION
+INVALID FUNCTION DECLARATION
+INVALID FUNCTION DECLARATION
+INVALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+
+Test 13: 13
+Incorrect program output
+--- Input ---
+5
+2 int area(int a, int b);
+2 int perimeter(int,int abc_cbn);
+2 char isAlpha(char);
+2 int function1(int), function2(int a);
+2 void voids(void); int nextFunction(int);
+
+--- Program output ---
+None
+None
+None
+None
+None
+
+--- Expected output (text)---
+VALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+
+Test 14: 14
+Incorrect program output
+--- Input ---
+5
+2 int area(int a int b);
+2 int perimeter(int,int abc_cbn)
+2 char is-Alpha(char);
+2 int function1(int), 2function(int);
+2 void void(void);
+
+--- Program output ---
+None
+None
+None
+None
+None
+
+--- Expected output (text)---
+INVALID FUNCTION DECLARATION
+INVALID FUNCTION DECLARATION
+INVALID FUNCTION DECLARATION
+INVALID FUNCTION DECLARATION
+INVALID FUNCTION DECLARATION
+
+Test 15: 15
+Incorrect program output
+--- Input ---
 6
-1 int x, y, z = 10;
-1 double a, b, c;
+1 int x = 2, y = 5, z = -10; float num = -1234.56; double dobol = z; int a = y = z;
+1 double a int function();
+2 INT function2(void);
+2 int solve(int,char,double x,float,int,int); int test(); void anotherTest(); float lastTest(float);
+1 int;x=0;
+2 int;functionTest(void);
 
-1 char a = 'a';
-1 int x, w, r;
-1 int ab2, wxyz; char r='a';
+--- Program output ---
+INVALID VARIABLE DECLARATION
+INVALID VARIABLE DECLARATION
+None
+None
+VALID VARIABLE DECLARATION
+None
 
+--- Expected output (text)---
+VALID VARIABLE DECLARATION
+INVALID VARIABLE DECLARATION
+INVALID FUNCTION DECLARATION
+VALID FUNCTION DECLARATION
+INVALID VARIABLE DECLARATION
+INVALID FUNCTION DECLARATION
 
-1
-1 double a=2, b=2.7, c=a;
-
-
-1
-1 char a = '1';
-
+Summary of tests
++------------------------------+
+| 15 tests run/ 8 tests passed |
++------------------------------+

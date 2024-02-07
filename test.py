@@ -1,7 +1,3 @@
 
-test = "hello_this_is_a_variable_name"
-
-print(test.isalnum())
-
-
-
+check = "a"
+print(isinstance(ord(check), int))
