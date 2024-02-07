@@ -32,20 +32,20 @@ STATES = [TYPE_DETECT, VAR_NAME_DETECT, VAR_VALUE_DETECT]
         
 def check_if_match(var_d_type, value):
     if var_d_type == "char":
-        ic()
-        if len(value != 1):
+        ic(value)
+        if len(value) == 1 and value.isalpha():
             ic()
             return False
 
     if var_d_type == "int":
-        ic(value)
+        ic()
         if not isinstance(int(value), int):
             ic()
             return False
 
     # THERE IS NO DIFFERENCE BETWEEN FLOAT AND DOUBLE IN PYTHON
     if var_d_type == "float":
-        ic(value)
+        ic()
         if not isinstance(value, float):
             ic()
             return False
@@ -81,6 +81,8 @@ def check_var_declaration(word):
         # CHECKING IF THE DATA TYPE IS CORRECT
         if CURRENT_STATE == TYPE_DETECT:
             if token == " ":
+                if word[i-1] == ";" or word[i-1] == " ":
+                    continue
                 if temp not in D_TYPE:
                     return IVD
                 data_type = temp
@@ -95,7 +97,7 @@ def check_var_declaration(word):
                 if len(temp) != 0:
                     if not temp.isalnum():
                         return IVD
-                    #ic("VALID")
+                    ic("VALID")
                 CURRENT_STATE = VAR_VALUE_DETECT
                 temp = ""
                 continue
@@ -105,7 +107,7 @@ def check_var_declaration(word):
                     return IVD
                 if not temp.isalnum():
                     return IVD
-                #ic("VALID")
+                ic("VALID")
                 temp = ""
                 continue
 
