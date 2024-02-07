@@ -8,3 +8,6 @@ for i, char in enumerate(my_string):
     print("Previous:", prev_char)
     print("Next:", next_char)
     print()
+
+
+

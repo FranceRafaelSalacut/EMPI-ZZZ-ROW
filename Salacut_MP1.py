@@ -6,7 +6,7 @@ REPO LINK
 https://github.com/FranceRafaelSalacut/EMPI-ZZZ-ROW.git
 '''
 
-from icecream import ic #a library for easier debug
+#from icecream import ic #a library for easier debug
 # ic.disable()
 
 # DATA TYPE
@@ -32,28 +32,28 @@ STATES = [TYPE_DETECT, VAR_NAME_DETECT, VAR_VALUE_DETECT]
         
 def check_if_match(var_d_type, value):
     if var_d_type == "char":
-        ic()
+        #ic()
         if len(value != 1):
-            ic()
+            #ic()
             return False
 
     if var_d_type == "int":
-        ic()
+        #ic()
         if not isinstance(int(value), int):
-            ic()
+            #ic()
             return False
 
     # THERE IS NO DIFFERENCE BETWEEN FLOAT AND DOUBLE IN PYTHON
     if var_d_type == "float":
-        ic()
+        #ic()
         if not isinstance(value, float):
-            ic()
+            #ic()
             return False
 
     if var_d_type == "double":
-        ic()
+        #ic()
         if not isinstance(value, float):
-            ic()
+            #ic()
             return False
 
     return True
@@ -72,7 +72,7 @@ def check_var_declaration(word):
         return IVD
     
 
-    ic(word)
+    #ic(word)
     temp = ""
     data_type = ""
     CURRENT_STATE = TYPE_DETECT
@@ -95,7 +95,7 @@ def check_var_declaration(word):
                 if len(temp) != 0:
                     if not temp.isalnum():
                         return IVD
-                    ic("VALID")
+                    #ic("VALID")
                 CURRENT_STATE = VAR_VALUE_DETECT
                 temp = ""
                 continue
@@ -105,7 +105,7 @@ def check_var_declaration(word):
                     return IVD
                 if not temp.isalnum():
                     return IVD
-                ic("VALID")
+                #ic("VALID")
                 temp = ""
                 continue
 
@@ -125,23 +125,24 @@ def check_var_declaration(word):
                 CURRENT_STATE = TYPE_DETECT
             temp = temp + token
         
-        ic(temp)
-        ic(CURRENT_STATE)
+        #ic(temp)
+        #ic(CURRENT_STATE)
 
     return VVD
 
 
 def check_fun_declaration(tokens):
-    ic()
-    ic(tokens)
+    pass
+    #ic()
+    #ic(tokens)
 
 def main():
     i = int(input())
-    ic(type(i))
+    #ic(type(i))
 
     for _ in range(0, i):
         word = input()
-        ic(word[0])
+        #ic(word[0])
         result = check_var_declaration(word[1:]) if word[0] == "1" else check_fun_declaration(word[1:])
         print(result)
 
