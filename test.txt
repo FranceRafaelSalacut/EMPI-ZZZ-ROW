@@ -12,7 +12,16 @@
 6
 1 int x, y, z = 10;
 1 double a, b, c;
-1 double a=2, b=2.7, c=a;
+
 1 char a = 'a';
 1 int x, w, r;
 1 int ab2, wxyz; char r='a';
+
+
+1
+1 double a=2, b=2.7, c=a;
+
+
+1
+1 char a = '1';
+

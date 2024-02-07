@@ -30,33 +30,61 @@ VAR_VALUE_DETECT = 2
 STATES = [TYPE_DETECT, VAR_NAME_DETECT, VAR_VALUE_DETECT]
     
         
-def check_if_match(var_d_type, value):
-    if var_d_type == "char":
-        ic(value)
-        if len(value) == 1 and value.isalpha():
-            ic()
-            return False
+def check_if_match(var_d_type, value, declared):
 
-    if var_d_type == "int":
+    # IF THE DATA TYPE CONVERSION FAILS WE WILL CHECK IF THE VALUE IS ALREADY A DECLARED VARIABLE
+    try:
+        if var_d_type == "char":
+            ic(value)
+            if "'" in value:
+                ic()
+                value = value.replace("'","")
+            ic(value)
+            ic(len(value))
+            ic(value.isalpha())
+            if len(value) != 1 and value.isalpha():
+                ic()
+                return False
+
+        if var_d_type == "int":
+            ic()
+            if not isinstance(int(value), int):
+                ic()
+                return False
+
+        # THERE IS NO DIFFERENCE BETWEEN FLOAT AND DOUBLE IN PYTHON
+        if var_d_type == "float":
+            ic()
+            if not isinstance(float(value), (int, float)):
+                ic()
+                return False
+
+        if var_d_type == "double":
+            ic()
+            if not isinstance(float(value), (int, float)):
+                ic()
+                return False
         ic()
-        if not isinstance(int(value), int):
-            ic()
-            return False
+        return True
+    except:
+        for key,val in declared.items():
+            ic(key)
+            ic(value)
+            if key == var_d_type:
+                for item in val:
+                    if item == value:
+                        return True
+        return False
 
-    # THERE IS NO DIFFERENCE BETWEEN FLOAT AND DOUBLE IN PYTHON
-    if var_d_type == "float":
-        ic()
-        if not isinstance(value, float):
-            ic()
-            return False
-
-    if var_d_type == "double":
-        ic()
-        if not isinstance(value, float):
-            ic()
-            return False
-
-    return True
+def add_to_dict(dict, data_type, value):
+    if data_type in dict:
+        list = dict[data_type]
+        list.append(value)
+        dict[data_type] = list
+        return dict
+    
+    dict[data_type] = [value]
+    return dict
 
 
 def check_var_declaration(word):
@@ -76,6 +104,7 @@ def check_var_declaration(word):
     #ic(word)
     temp = ""
     data_type = ""
+    declared = {}
     CURRENT_STATE = TYPE_DETECT
     for i,token in enumerate(word):
         # CHECKING IF THE DATA TYPE IS CORRECT
@@ -99,6 +128,7 @@ def check_var_declaration(word):
                         return IVD
                     ic("VALID")
                 CURRENT_STATE = VAR_VALUE_DETECT
+                declared = add_to_dict(declared, data_type, temp)
                 temp = ""
                 continue
 
@@ -107,6 +137,7 @@ def check_var_declaration(word):
                     return IVD
                 if not temp.isalnum():
                     return IVD
+                declared = add_to_dict(declared, data_type, temp)
                 ic("VALID")
                 temp = ""
                 continue
@@ -125,6 +156,7 @@ def check_var_declaration(word):
                     if not temp.isalnum():
                         return IVD
                 CURRENT_STATE = TYPE_DETECT
+                declared = add_to_dict(declared, data_type, temp)
                 temp = ""
                 continue
 
@@ -133,13 +165,13 @@ def check_var_declaration(word):
             if token == " ":
                 token = ""
             if token == ",":
-                if not check_if_match(data_type, temp):
+                if not check_if_match(data_type, temp, declared):
                     return IVD
                 CURRENT_STATE = VAR_NAME_DETECT
                 temp = ""
                 continue
             if token == ";":
-                if not check_if_match(data_type, temp):
+                if not check_if_match(data_type, temp, declared):
                     return IVD
                 CURRENT_STATE = TYPE_DETECT
                 temp = ""
