@@ -6,7 +6,7 @@ REPO LINK
 https://github.com/FranceRafaelSalacut/EMPI-ZZZ-ROW.git
 '''
 
-# from icecream import ic #a library for easier debug
+from icecream import ic #a library for easier debug
 # ic.disable()
 
 # DATA TYPE
@@ -35,41 +35,41 @@ def check_if_match(var_d_type, value, declared):
     # IF THE DATA TYPE CONVERSION FAILS WE WILL CHECK IF THE VALUE IS ALREADY A DECLARED VARIABLE
     try:
         if var_d_type == "char":
-            #ic(value)
+            ic(value)
             if "'" in value:
-                #ic()
+                ic()
                 value = value.replace("'","")
-            #ic(value)
-            #ic(len(value))
-            #ic(value.isalpha())
+            ic(value)
+            ic(len(value))
+            ic(value.isalpha())
             if len(value) != 1 and value.isalpha():
-                #ic()
+                ic()
                 return False
 
         if var_d_type == "int":
-            #ic()
+            ic()
             if not isinstance(int(value), int):
-                #ic()
+                ic()
                 return False
 
         # THERE IS NO DIFFERENCE BETWEEN FLOAT AND DOUBLE IN PYTHON
         if var_d_type == "float":
-            #ic()
+            ic()
             if not isinstance(float(value), (int, float)):
-                #ic()
+                ic()
                 return False
 
         if var_d_type == "double":
-            #ic()
+            ic()
             if not isinstance(float(value), (int, float)):
-                #ic()
+                ic()
                 return False
-        #ic()
+        ic()
         return True
     except:
         for key,val in declared.items():
-            #ic(key)
-            #ic(value)
+            ic(key)
+            ic(value)
             if key == var_d_type:
                 for item in val:
                     if item == value:
@@ -87,10 +87,12 @@ def add_to_dict(dict, data_type, value):
     return dict
 
 def valid_name(name):
+    if "_" in name:
+        name = name.replace("_", "")
     return name.isalnum()
 
 def check_var_declaration(word):
-    #ic()
+    ic()
     # CHECKING IF THE TOKENS HAS A PARENTHESIS MEANING ITS A FUNCTION
     for token in word:
         if "(" in token or ")" in token:
@@ -103,7 +105,7 @@ def check_var_declaration(word):
         return IVD
     
 
-    ##ic(word)
+    #ic(word)
     temp = ""
     data_type = ""
     declared = {}
@@ -129,7 +131,7 @@ def check_var_declaration(word):
                 if len(temp) != 0:
                     if not valid_name(temp):
                         return IVD
-                    #ic("VALID")
+                    ic("VALID")
                 CURRENT_STATE = VAR_VALUE_DETECT
                 declared = add_to_dict(declared, data_type, temp)
                 temp = ""
@@ -142,15 +144,15 @@ def check_var_declaration(word):
                 if not valid_name(temp):
                     return IVD
                 declared = add_to_dict(declared, data_type, temp)
-                #ic("VALID")
+                ic("VALID")
                 temp = ""
                 continue
 
             if token == " ":
-                #ic(word[i-1])
-                #ic(word[i+1])
+                ic(word[i-1])
+                ic(word[i+1])
                 if word[i-1] != ",":
-                    #ic()
+                    ic()
                     if word[i+1] != " " and word[i+1] != ";" and word[i+1] != "=":
                         if has_comma:
                             has_comma = False
@@ -186,26 +188,26 @@ def check_var_declaration(word):
                 continue
             temp = temp + token
         
-        #ic(temp)
-        #ic(CURRENT_STATE)
-    #ic()
+        ic(temp)
+        ic(CURRENT_STATE)
+    ic()
     return VVD
 
 
 def check_fun_declaration(tokens):
     pass
-    ##ic()
-    ##ic(tokens)
+    #ic()
+    #ic(tokens)
 
 def main():
     i = int(input())
-    ##ic(type(i))
+    #ic(type(i))
 
     for _ in range(0, i):
         word = input()
-        ##ic(word[0])
+        #ic(word[0])
         result = check_var_declaration(word[1:]) if word[0] == "1" else check_fun_declaration(word[1:])
-        #ic(result)
+        ic(result)
         print(result)
 
 main()
