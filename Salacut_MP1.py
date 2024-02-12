@@ -8,8 +8,7 @@ https://github.com/FranceRafaelSalacut/EMPI-ZZZ-ROW.git
 
 This code is very dirty all over
 '''
-
-from icecream import ic #a library for easier debug
+# from icecream import ic #a library for easier debug
 # ic.disable()
 
 # DATA TYPE
@@ -208,11 +207,15 @@ def check_var_declaration(word):
             if token == " ":
                 token = ""
             if token == ",":
+                print("here")
+                if not valid_name(temp):
+                    return IFD
                 if not check_if_match(data_type, temp, declared):
                     return IVD
                 CURRENT_STATE = VAR_NAME_DETECT
                 temp = ""
                 continue
+
             if token == ";":
                 if not check_if_match(data_type, temp, declared):
                     return IVD
@@ -328,17 +331,24 @@ def check_fun_declaration(word):
 
                 temp = temp + token
 
-
             elif PARAM_STATE == FUN_PARAMETER_VARNAME_DETECT: 
                 ic()
                 if token == ",": 
+                    ic()
+                    if not valid_name(temp):
+                        return IFD
                     if check_dict(declared, temp):
                         declared = add_to_dict(declared, data_type, temp)
                     else:
                         return IFD
+                    temp = ""
+                    PARAM_STATE = FUN_PARAMETER_TYPE_DETECT
+                    continue
                 
                 ic()
                 if token == " ":
+                    if word[i+1] != " " and word[i+1] != ",":
+                        return IFD
                     token = ""
                     
                 temp = temp + token

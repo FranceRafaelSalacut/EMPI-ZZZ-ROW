@@ -178,3 +178,10 @@ Summary of tests
 
 1
 2 void voids(void); int nextFunction(int);
+
+
+1
+2 int area(int a int b);
+
+1
+2 int solve(int,    char,double x,float,int,   int);
