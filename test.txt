@@ -189,3 +189,6 @@ Summary of tests
 
 1
 2 int perimeter(int,int abc_cbn)
+
+1 
+2 char toLower( char );
