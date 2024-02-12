@@ -3,6 +3,7 @@ HONOR CODE
 I declare, upon my honor, that I did this machine problem assignment by myself using references from the lecture notes and MPs.
 
 REPO LINK
+NOTE: THE COMMIT MESSAGES ARE NOT FUNCTIONAL
 https://github.com/FranceRafaelSalacut/EMPI-ZZZ-ROW.git
 
 This code is very dirty all over
