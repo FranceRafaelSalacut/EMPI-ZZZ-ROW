@@ -228,7 +228,7 @@ def check_var_declaration(word):
 # STATES FOR FUNCTION DECLARATION
 TYPE_DETECT = 0
 FUN_NAME_DETECT = 1
-VAR_PARAMETER_DETECT = 2
+FUN_PARAMETER_DETECT = 2
 
 
 
@@ -256,14 +256,25 @@ def check_fun_declaration(word):
 
         if CURRENT_STATE == FUN_NAME_DETECT:
             if token == "(":
+                ic(temp)
                 if not valid_name(temp):
                     return IFD
-                
+                CURRENT_STATE = FUN_PARAMETER_DETECT
+                temp = ""
+                continue
+
             if token == " ":
                 if word[i+1] != "(":
                     if word[i+1] != " " or word[i+1] != "(":
                         return IFD
-    
+
+            temp = temp + token
+        
+        ic(temp)
+        ic(CURRENT_STATE)
+
+        if CURRENT_STATE == FUN_PARAMETER_DETECT:
+            pass
     return  VFD
 
 def main():
