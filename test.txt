@@ -169,3 +169,9 @@ Summary of tests
 
 1
 2 int function();
+
+1
+2 int solve(int,    char,double x,float,int,   int);
+
+1
+2 int gcd(int,int), lcm(  int, int);

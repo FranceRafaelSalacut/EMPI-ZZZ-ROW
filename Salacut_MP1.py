@@ -244,14 +244,15 @@ def check_fun_declaration(word):
     temp = ""
     has_comma = False
     closed = False
-    declared = []
+    declared = {}
     CURRENT_STATE = TYPE_DETECT
     PARAM_STATE = FUN_PARAMETER_TYPE_DETECT
     for i,token in enumerate(word):
         if CURRENT_STATE == TYPE_DETECT:
             if token == " ":
-                if temp not in D_TYPE:
-                    return IFD
+                if temp != "":
+                    if temp not in D_TYPE:
+                        return IFD
                 data_type = temp
                 CURRENT_STATE = FUN_NAME_DETECT
                 temp = ""
@@ -259,6 +260,7 @@ def check_fun_declaration(word):
             temp = temp + token
 
         elif CURRENT_STATE == FUN_NAME_DETECT:
+            ic()
             if token == "(":
                 ic(temp)
                 if not valid_name(temp):
@@ -279,13 +281,18 @@ def check_fun_declaration(word):
             if PARAM_STATE == FUN_PARAMETER_TYPE_DETECT :
                 ic()
                 if token == " ":
-                    if temp not in D_TYPE:
-                        return IFD
-                    PARAM_STATE = FUN_PARAMETER_VARNAME_DETECT
-                    temp = ""
-                    continue
+                    if temp != "":
+                        ic()
+                        if temp not in D_TYPE:
+                            return IFD
+                        PARAM_STATE = FUN_PARAMETER_VARNAME_DETECT
+                        temp = ""
+                        continue
+                    ic()
+                    token = ""
 
                 if token == ")":
+                    ic()
                     if word[i-1] != "(":
                         if temp not in D_TYPE:
                             return IFD
@@ -296,19 +303,40 @@ def check_fun_declaration(word):
                 if closed:
                     if token == ";":
                         CURRENT_STATE = TYPE_DETECT
+                        temp = ""
+                        closed = False
+                        continue
+                    elif token == ",":
+                        ic()
+                        CURRENT_STATE = TYPE_DETECT
+                        closed = False
+                        temp = ""
+                        continue
                     elif token == " ":
                         pass
                     else:
                         return IFD
+                    
+                if token == ",": 
+                    if temp not in D_TYPE:
+                        return IFD
+                    temp = ""
+                    continue
+
                 temp = temp + token
 
+
             elif PARAM_STATE == FUN_PARAMETER_VARNAME_DETECT: 
+                ic()
                 if token == ",": 
                     if check_dict(declared, temp):
                         declared = add_to_dict(declared, data_type, temp)
                     else:
                         return IFD
-                    
+                
+                ic()
+                if token == " ":
+                    token = ""
                     
                 temp = temp + token
 
