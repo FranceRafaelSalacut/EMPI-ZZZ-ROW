@@ -192,3 +192,9 @@ Summary of tests
 
 1 
 2 char toLower( char );
+
+1 
+1 int x = 2, y = 5, z = -10; float num = -1234.56; double dobol = z; int a = y = z;\
+
+1 
+1 int;x=0;
