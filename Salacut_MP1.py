@@ -248,15 +248,21 @@ def check_fun_declaration(word):
     CURRENT_STATE = TYPE_DETECT
     PARAM_STATE = FUN_PARAMETER_TYPE_DETECT
     for i,token in enumerate(word):
+        ic(token)
         if CURRENT_STATE == TYPE_DETECT:
+            ic()
             if token == " ":
+                ic(temp)
                 if temp != "":
                     if temp not in D_TYPE:
                         return IFD
-                data_type = temp
-                CURRENT_STATE = FUN_NAME_DETECT
-                temp = ""
-                continue
+                    data_type = temp
+                    CURRENT_STATE = FUN_NAME_DETECT
+                    temp = ""
+                    ic()
+                    continue
+                token = ""
+            ic()
             temp = temp + token
 
         elif CURRENT_STATE == FUN_NAME_DETECT:

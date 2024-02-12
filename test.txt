@@ -175,3 +175,6 @@ Summary of tests
 
 1
 2 int gcd(int,int), lcm(  int, int);
+
+1
+2 void voids(void); int nextFunction(int);

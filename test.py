@@ -1,6 +1,6 @@
 
-check = "a"
-print(isinstance(ord(check), int))
+check = "void voids(void); int nextFunction(int);"
+print(check[20])
 
 
 
