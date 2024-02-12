@@ -225,9 +225,46 @@ def check_var_declaration(word):
     ic()
     return VVD
 
+# STATES FOR FUNCTION DECLARATION
+TYPE_DETECT = 0
+FUN_NAME_DETECT = 1
+VAR_PARAMETER_DETECT = 2
 
-def check_fun_declaration(tokens):
+
+
+def check_fun_declaration(word):
+    if word[0] == " ":
+        word = word[1:]
+    else:
+        return IFD
     
+    temp = ""
+    has_comma = False
+    names = []
+    CURRENT_STATE = TYPE_DETECT
+    for i,token in enumerate(word):
+        if CURRENT_STATE == TYPE_DETECT:
+            if token == " ":
+                if word[i-1] == ";" or word[i-1] == " ":
+                    continue
+                if temp not in D_TYPE:
+                    return IFD
+                CURRENT_STATE = FUN_NAME_DETECT
+                temp = ""
+                continue
+            temp = temp + token
+
+        if CURRENT_STATE == FUN_NAME_DETECT:
+            if token == "(":
+                if not valid_name(temp):
+                    return IFD
+                
+            if token == " ":
+                if word[i+1] != "(":
+                    if word[i+1] != " " or word[i+1] != "(":
+                        return IFD
+    
+    return  VFD
 
 def main():
     i = int(input())
