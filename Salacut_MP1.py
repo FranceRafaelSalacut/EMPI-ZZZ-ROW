@@ -9,7 +9,7 @@ https://github.com/FranceRafaelSalacut/EMPI-ZZZ-ROW.git
 This code is very dirty all over
 '''
 
-from icecream import ic #a library for easier debug
+# from icecream import ic #a library for easier debug
 # ic.disable()
 
 # DATA TYPE
@@ -19,6 +19,9 @@ D_TYPE = ["int",
         "double",
         "void"
         ]
+
+# Special Characters
+SP = ";!:*&^%$#@"
 
 # RESULTS
 IVD = "INVALID VARIABLE DECLARATION"
@@ -37,19 +40,19 @@ def check_if_match(var_d_type, value, declared):
     # IF THE DATA TYPE CONVERSION FAILS WE WILL CHECK IF THE VALUE IS ALREADY A DECLARED VARIABLE OR IF THE VARIABLE IS AN ASCII CODE
     try:
         if var_d_type == "char":
-            ic(value)
+            #ic(value)
             if "'" in value:
-                ic()
+                #ic()
                 value = value.replace("'","")
-            ic(value)
-            ic(len(value))
-            ic(value.isalpha())
+            #ic(value)
+            #ic(len(value))
+            #ic(value.isalpha())
             if len(value) != 1 and value.isalpha():
-                ic()
+                #ic()
                 return False
 
         if var_d_type == "int":
-            ic()
+            #ic()
             return isinstance(int(value), int)
                 
         # THERE IS NO DIFFERENCE BETWEEN FLOAT AND DOUBLE IN PYTHON
@@ -149,6 +152,9 @@ def check_var_declaration(word):
                 CURRENT_STATE = VAR_NAME_DETECT
                 temp = ""
                 continue
+            
+            if token in SP:
+                return IVD
             temp = temp + token
         
         # CHECKING IF VAR NAME IS CORRECT
@@ -272,6 +278,9 @@ def check_fun_declaration(word):
                     temp = ""
                     continue
                 continue
+            
+            if token in SP:
+                return IFD
             temp = temp + token
 
         elif CURRENT_STATE == FUN_NAME_DETECT:
